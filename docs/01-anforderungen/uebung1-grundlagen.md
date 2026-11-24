@@ -1,129 +1,218 @@
-# Übungsblatt 1: Anforderungserhebung – Fallstudie „FundPunkt“ (Fundbüro-App)
+# Übungsblatt 1: Grundlagen & Anforderungserhebung – Fundbüro-App
 
-## Aufgabe 1 – Wahl der Fallstudie
-
-**Gewählte Fallstudie:** Fundbüro-App (**FundPunkt**)
-
-**Kurzbeschreibung:**
-FundPunkt ist eine digitale Fundbüro-Anwendung (z. B. für einen Hochschulcampus oder eine Gemeinde), mit der gefundene und verlorene Gegenstände schnell gemeldet, gezielt durchsucht und nach erfolgreicher Eigentumsprüfung sicher an ihre Besitzer zurückgegeben werden können.
+**Fallstudie:** Digitale Fundbüro-App zum Melden von Verlusten und Funden, automatischem Abgleich, Eigentumsprüfung, Terminvergabe und dokumentierter Herausgabe.
 
 ---
 
-## Aufgabe 3 – Personas
+## Aufgabe 3 - Erstellen Sie Personas für die wichtigsten Nutzergruppen Ihres Systems
 
-### Persona 1: Anna Berger (Suchende / Verliererin)
-- **Demografische Daten:** 23 Jahre alt, Bachelorstudentin (Wirtschaftsingenieurwesen) an der Hochschule München, pendelt täglich mit der U-Bahn zum Campus Lothstraße.
-- **Bedürfnisse:** Möchte sofort prüfen können, ob ihr verlorener Rucksack oder Schlüsselbund gefunden wurde, ohne telefonisch oder persönlich bei mehreren Stellen nachfragen zu müssen.
-- **Probleme und Herausforderungen:** Weiß oft nicht genau, wo sie einen Gegenstand verloren hat, und hat im stressigen Uni-Alltag wenig Zeit, zu den knappen Öffnungszeiten am Infopoint vorbeizugehen.
-- **Verhalten in der Vergangenheit:** Hat bisher Aushänge am Schwarzen Brett gelesen, in Studi-Chatgruppen gefragt oder tagelang gewartet, bis sie jemanden telefonisch erreicht hat.
-- **Ziele:** Schnell nach verlorenen Gegenständen suchen, ihren Eigentumsanspruch unkompliziert nachweisen und einen klaren Abholtermin vereinbaren.
-- **Qualitätswahrnehmung:** Erwartet eine schnelle, mobil gut bedienbare Suche und zeitnahe Rückmeldungen zum Status ihrer Anfrage.
+### Persona 1: Lena Hoffmann, die Verliererin
 
-### Persona 2: Markus Lindner (Finder)
-- **Demografische Daten:** 41 Jahre alt, Laboringenieur an der Hochschule München, findet regelmäßig liegengebliebene Gegenstände (z. B. Trinkflaschen, Ladegeräte, Rucksäcke) in Hörsälen und auf dem Campus.
-- **Bedürfnisse:** Möchte gefundene Gegenstände mit minimalem Aufwand erfassen und sicherstellen, dass sie wirklich an die rechtmäßige Besitzerin übergeben werden.
-- **Probleme und Herausforderungen:** Hat keine Zeit für lange Papierformulare und möchte seine private Telefonnummer oder Wohnadresse nicht öffentlich teilen.
-- **Verhalten in der Vergangenheit:** Hat Fundstücke meist einfach beim Hausmeister abgegeben, ohne zu erfahren, ob sie je abgeholt wurden.
-- **Ziele:** Fundstücke strukturiert mit Fundort, Datum und einem verdeckten Sicherheitsmerkmal erfassen, eingehende Ansprüche prüfen und die Übergabe sauber dokumentieren.
-- **Qualitätswahrnehmung:** Legt großen Wert auf Datenschutz, Missbrauchsschutz (keine Herausgabe an Unbefugte) und eine eindeutige Statusverwaltung.
+| Aspekt | Beschreibung |
+|---|---|
+| **Demografie** | 22 Jahre, Studentin (Informatik, 4. Semester), wohnt in einer WG, pendelt täglich mit Bus und Bahn. Sehr smartphone-affin, nutzt fast nur mobile Apps. |
+| **Bedürfnisse** | Schnell und unkompliziert melden, was sie verloren hat, und möglichst schnell Rückmeldung erhalten. Sie will nicht zu Öffnungszeiten ins Amt gehen. |
+| **Probleme und Herausforderungen** | Sie weiß nicht, wo sie ihren Rucksack verloren hat (Bus, Bahn oder Uni). Sie kennt die zuständigen Stellen nicht (Verkehrsbetrieb, Uni, städtisches Fundbüro). Sie hat tagsüber Vorlesungen und kann nicht zu Öffnungszeiten vorbeikommen. |
+| **Verhalten in der Vergangenheit** | Sie hat schon zweimal Gegenstände verloren (Kopfhörer, Schlüssel). Sie hat im Netz gesucht, mehrere Hotlines angerufen und dort nie jemanden erreicht. Sie hat die Sachen aufgegeben. |
+| **Ziele** | Verlorene Gegenstände zurückbekommen, besonders wertvolle (Laptop, Ausweis). Wenig Zeitaufwand. Gleich eine Benachrichtigung erhalten, wenn etwas Passendes gefunden wird. |
+| **Qualitätswahrnehmung** | Erwartet eine intuitive Bedienung, kurze Formulare (max. 2 Minuten), Foto-Upload, Push-Benachrichtigungen und Ladezeiten unter 2 Sekunden. Eine App, die abstürzt oder viele Pflichtfelder hat, deinstalliert sie sofort. |
 
----
+### Persona 2: Klaus Brandt, der Sachbearbeiter im Fundbüro
 
-## Aufgabe 4 – Szenario
+| Aspekt | Beschreibung |
+|---|---|
+| **Demografie** | 58 Jahre, seit 20 Jahren Verwaltungsangestellter im städtischen Fundbüro. Gute Büro-Software-Kenntnisse, aber wenig Begeisterung für neue Technik. |
+| **Bedürfnisse** | Fundsachen schnell erfassen, übersichtlich verwalten und rechtssicher herausgeben. Er braucht eine klare Oberfläche ohne Schnickschnack. |
+| **Probleme und Herausforderungen** | Fundsachen werden bisher auf Papier und in einer veralteten Excel-Liste geführt. Es gibt viele telefonische Nachfragen. Er muss Eigentumsnachweise prüfen und gesetzliche Aufbewahrungsfristen (6 Monate) einhalten. Das Lager ist voll. |
+| **Verhalten in der Vergangenheit** | Er hat bisher alles manuell dokumentiert und einen neuen Gegenstand erst nach Feierabend ins System eingetragen. Neue Software hat er bisher skeptisch ausprobiert. Wenn sie umständlich war, ist er zur Papierlösung zurückgekehrt. |
+| **Ziele** | Weniger Aufwand pro Fundsache, weniger Rückfragen am Telefon, Fundsachen schneller an Besitzer zurückgeben und das Lager entlasten. |
+| **Qualitätswahrnehmung** | Zuverlässigkeit und Nachvollziehbarkeit sind ihm am wichtigsten (Protokollierung jeder Herausgabe). Große Schrift, klare Menüs und Tastaturbedienung sind ihm wichtig. |
 
-### Narratives Szenario: „Verlorenen Rucksack wiederfinden und abholen“
+### Persona 3: Tom Weber, der ehrliche Finder
 
-Nach einer langen Vorlesung im R-Bau bemerkt Anna erst in der U-Bahn, dass sie ihren dunkelblauen Rucksack im Hörsaal vergessen hat. Da der Raum inzwischen abgeschlossen ist, öffnet sie am nächsten Morgen die Web-App **FundPunkt** und meldet sich mit ihrem Benutzerkonto an.
-
-Bereits am Vorabend hat Markus Lindner den vergessenen Rucksack beim Abschließen des Hörsaals gefunden. Er meldet sich in **FundPunkt** an und erstellt eine neue Fundmeldung: Titel „Blauer Rucksack“, Kategorie „Taschen“, Fundort „R-Bau Hörsaal R1.046“, Funddatum „2026-11-23“. Zusätzlich trägt er als nicht-öffentliches Sicherheitsmerkmal ein: „Roter Schlüsselanhänger mit HM-Logo in der Vordertasche“. Das System speichert die Fundmeldung im Status *Gemeldet*.
-
-Am nächsten Morgen gibt Anna in der Suchleiste „Rucksack“ ein und filtert nach der Kategorie „Taschen“. Das System zeigt ihr Markus' Fundmeldung an (ohne das verdeckte Sicherheitsmerkmal). Anna erkennt ihren Rucksack, klickt auf „Anspruch melden“ und gibt als Eigentumsnachweis „Roter Schlüsselanhänger mit HM-Logo in der Vordertasche“ ein. Das System legt eine Rückgabeanfrage an und setzt die Fundmeldung auf *Beansprucht*.
-
-Markus erhält eine Benachrichtigung, vergleicht Annas Angabe mit seinem hinterlegten Sicherheitsmerkmal und bestätigt die Anfrage. Das System ändert den Status der Fundmeldung auf *Abholbereit* und schaltet für Anna den vereinbarten Übergabeort (Labor R2.012) frei. Am Nachmittag holt Anna den Rucksack ab, Markus bestätigt die Übergabe im System, und die Fundmeldung wechselt in den Endstatus *Zurückgegeben*.
-
-### Zusammenfassung des Szenarios
-- **Name des Szenarios:** Verlorenen Rucksack wiederfinden und abholen
-- **Beteiligte Persona:** Anna Berger (Suchende), Markus Lindner (Finder)
-- **Übergeordnetes Ziel:** Einen verlorenen Gegenstand schnell auffinden, die Eigentümerschaft eindeutig verifizieren und die Rückgabe geordnet abwickeln.
-- **Was zur Zielerreichung nötig ist:** Benutzerkonto, Fundmeldung mit verdecktem Sicherheitsmerkmal, Such- und Filterfunktion, Rückgabeanfrage mit Bestätigungsprozess und Übergabedokumentation.
-- **Problem mit dem bestehenden System:** Papierlisten und unkoordinierte Chatgruppen sind unübersichtlich; Finder wissen nicht, wie sie echte Besitzer von Unbefugten unterscheiden können.
-- **Mögliche Problemlösungen:** Zentrale Fundbüro-App mit strukturierter Suche, geschütztem Eigentumsnachweis und klarem Lebenszyklus jeder Fundmeldung.
+| Aspekt | Beschreibung |
+|---|---|
+| **Demografie** | 41 Jahre, Vertriebsmitarbeiter, Vater von zwei Kindern, fährt mit der S-Bahn zur Arbeit. Mittlere Technikaffinität. |
+| **Bedürfnisse** | Einen gefundenen Gegenstand schnell loswerden, ohne Umwege und ohne persönliche Verpflichtungen. |
+| **Probleme und Herausforderungen** | Er weiß nicht, wo er Fundsachen abgeben soll. Er hat Angst, dass ihm Ärger oder Aufwand entstehen (Formulare, Zeugenaussagen). Er hat wenig Zeit. |
+| **Verhalten in der Vergangenheit** | Er hat schon einmal einen Geldbeutel beim Schaffner abgegeben und nie erfahren, ob der Besitzer ihn zurückbekam. |
+| **Ziele** | Dem Besitzer helfen, dabei möglichst wenig Aufwand haben. Er möchte erfahren, ob der Gegenstand zurückgegeben wurde. |
+| **Qualitätswahrnehmung** | Meldung in unter einer Minute, Standort per GPS automatisch erfasst, klare Anweisung, wohin er den Gegenstand bringen soll. |
 
 ---
 
-## Aufgabe 5 – User Stories
+## Aufgabe 4 - Schreiben Sie ein Szenario, in der die Persona Ihre Anwendung ausführt
 
-1. **US-01 (Fund melden):** Als Finder möchte ich einen gefundenen Gegenstand mit Titel, Kategorie, Fundort, Funddatum und einem verdeckten Sicherheitsmerkmal erfassen können, damit der rechtmäßige Besitzer ihn wiederfinden kann.
-2. **US-02 (Suchen):** Als Suchende möchte ich nach gefundenen Gegenständen anhand von Suchbegriffen und Kategorien suchen können, damit ich schnell herausfinde, ob mein verlorener Gegenstand abgegeben wurde.
-3. **US-03 (Anspruch melden):** Als Suchende möchte ich zu einer passenden Fundmeldung eine Rückgabeanfrage mit meinem Eigentumsnachweis stellen können, damit ich meinen Gegenstand beanspruchen kann.
-4. **US-04 (Anspruch prüfen):** Als Finder möchte ich eingehende Rückgabeanfragen anhand des angegebenen Eigentumsnachweises bestätigen oder ablehnen können, damit der Gegenstand nur an die rechtmäßige Person übergeben wird.
-5. **US-05 (Anfrage stornieren):** Als Suchende möchte ich eine noch nicht abgeschlossene Rückgabeanfrage stornieren können, damit die Fundmeldung bei einem Irrtum wieder für andere Suchende freigegeben wird.
-6. **US-06 (Rückgabe dokumentieren):** Als Finder möchte ich die erfolgte Übergabe des Gegenstands im System bestätigen können, damit die Fundmeldung abgeschlossen ist und nicht mehr in der öffentlichen Suche erscheint.
+### Szenario: „Lena findet ihren verlorenen Rucksack wieder“
+
+Es ist Montagabend, 18:30 Uhr. Lena sitzt in ihrer WG-Küche und greift nach ihrem Rucksack, um ihren Laptop auszupacken. Da bemerkt sie, dass der Rucksack fehlt. Sie hat ihn vermutlich in der S-Bahn auf der Heimfahrt liegen lassen. Darin sind ihr Laptop, ihr Studentenausweis und ein Ladekabel.
+
+Panik kommt auf. Sie erinnert sich an die Fundbüro-App, die sie gestern installiert hat. Sie öffnet die App und tippt auf „Verlust melden“. Als Kategorie wählt sie „Tasche/Rucksack“. Sie gibt die Beschreibung ein: schwarzer Rucksack, Marke „Eastpak“, ein roter Anhänger am Reißverschluss, Inhalt Laptop. Sie wählt den Verlustort „S-Bahn Linie S3, Richtung Innenstadt“ und das ungefähre Zeitfenster 17:30 bis 18:15 Uhr. Als Foto lädt sie ein ähnliches Bild aus ihrer Galerie hoch. Sie gibt ihre Kontaktdaten an und aktiviert Push-Benachrichtigungen. Nach etwa zwei Minuten bestätigt die App die Meldung und zeigt eine Meldenummer.
+
+Die App zeigt sofort eine Liste ähnlicher Fundsachen. Es ist noch nichts Passendes dabei. Lena legt das Handy weg.
+
+Um 20:10 Uhr findet Tom Weber den Rucksack in der Endhaltestelle der S-Bahn. Er öffnet die App, tippt auf „Fund melden“ und fotografiert den Rucksack. Die App erfasst seinen Standort per GPS. Er gibt an, dass er den Rucksack beim Fundbüro abgeben wird, und bekommt eine Anleitung dazu.
+
+Das System gleicht die Fundmeldung automatisch mit offenen Verlustmeldungen ab. Es findet eine hohe Übereinstimmung mit Lenas Meldung (Kategorie, Farbe, Ort, Zeit). Um 20:11 Uhr erhält Lena eine Push-Nachricht: „Möglicher Treffer für Ihren Rucksack!“
+
+Lena öffnet die App und sieht das Foto. Es ist ihr Rucksack mit dem roten Anhänger. Sie tippt auf „Das ist meiner“ und beantwortet eine Kontrollfrage („Welche Marke hat Ihr Laptop?“), um das Eigentum zu bestätigen. Dann wählt sie einen Abholtermin im Fundbüro am nächsten Tag um 16:00 Uhr. Die App bestätigt den Termin und erinnert sie am nächsten Morgen daran.
+
+Am nächsten Tag zeigt Lena am Schalter ihren Ausweis und die digitale Abholbestätigung in der App. Herr Brandt scannt den QR-Code. Sein System zeigt die Fundsache samt Beschreibung und Besitzer-Anfrage. Er prüft den Ausweis, gibt den Rucksack heraus und schließt den Vorgang mit „Herausgegeben“ ab. Lena erhält eine Bestätigung. Tom erhält ebenfalls eine Nachricht: „Der Gegenstand wurde zurückgegeben. Danke für Ihre Hilfe!“
+
+### Zusammenfassung
+
+| Punkt | Inhalt |
+|---|---|
+| **Name des Szenarios** | Verlorenen Gegenstand melden, finden lassen und zurückerhalten |
+| **Beteiligte Personas** | Lena Hoffmann (Verliererin), Tom Weber (Finder), Klaus Brandt (Sachbearbeiter) |
+| **Übergeordnetes Ziel** | Lena bekommt ihren Rucksack schnell und sicher zurück. |
+| **Was zur Zielerreichung nötig ist** | Verlustmeldung mit Beschreibung, Ort, Zeit und Foto. Fundmeldung durch den Finder. Automatischer Abgleich beider Meldungen. Benachrichtigung. Eigentumsprüfung. Terminvereinbarung. Dokumentierte Übergabe. |
+| **Problem mit dem bestehenden System** | Aktuell sind Verlust- und Fundmeldungen getrennt und meist telefonisch oder auf Papier. Es gibt keinen automatischen Abgleich und keine Benachrichtigung. Die Zuständigkeiten sind unklar (Verkehrsbetrieb, Stadt, Uni). Es gibt feste Öffnungszeiten, und der Finder erfährt nichts über den Ausgang. |
+| **Mögliche Problemlösungen** | Zentrale App mit einheitlicher Plattform für alle Fundstellen. Automatischer Abgleich über Kategorie, Merkmale, Ort, Zeit (optional Bildvergleich). Push-Benachrichtigung bei Treffer. Eigentumsprüfung über Kontrollfragen. Online-Terminbuchung. QR-Code für die Übergabe. Rückmeldung an den Finder. |
 
 ---
 
-## Aufgabe 6 – Anwendungsfalldiagramm (Use-Case-Diagramm)
+## Aufgabe 5 - Schreiben und analysieren Sie User Stories
+
+Format: *Als [Rolle] möchte/muss ich [Funktion], damit [Nutzen].*
+
+| Nr. | User Story |
+|---|---|
+| **US1** | Als **Verlierer** möchte ich einen verlorenen Gegenstand mit Beschreibung, Foto, Ort und Zeitraum melden, damit das System und das Fundbüro gezielt danach suchen können. |
+| **US2** | Als **Finder** möchte ich einen gefundenen Gegenstand mit Foto und automatisch erfasstem Standort melden, damit der Besitzer ihn schnell wiederfindet und ich wenig Aufwand habe. |
+| **US3** | Als **Verlierer** möchte ich automatisch benachrichtigt werden, wenn ein passender Gegenstand gefunden wurde, damit ich nicht dauernd selbst suchen muss. |
+| **US4** | Als **Nutzer** möchte ich die Fundsachen nach Kategorie, Ort, Datum und Stichwort filtern und durchsuchen, damit ich schnell den passenden Gegenstand finde. |
+| **US5** | Als **Verlierer** muss ich mein Eigentum über Kontrollfragen oder Merkmale nachweisen, damit Gegenstände nicht an Unbefugte herausgegeben werden. |
+| **US6** | Als **Verlierer** möchte ich online einen Abholtermin im Fundbüro buchen, damit ich nicht zu den Öffnungszeiten warten muss. |
+| **US7** | Als **Sachbearbeiter** möchte ich eingehende Fundsachen erfassen, mit Lagerort versehen und deren Status verwalten, damit ich den Überblick über das Lager behalte. |
+| **US8** | Als **Sachbearbeiter** möchte ich eine Herausgabe per QR-Code-Scan dokumentieren, damit jede Übergabe nachvollziehbar und rechtssicher protokolliert ist. |
+| **US9** | Als **Sachbearbeiter** möchte ich eine Liste der Fundsachen sehen, deren Aufbewahrungsfrist abläuft, damit ich sie fristgerecht versteigern, spenden oder entsorgen kann. |
+| **US10** | Als **Finder** möchte ich benachrichtigt werden, wenn der Gegenstand zurückgegeben wurde, damit ich weiß, dass meine Hilfe erfolgreich war. |
+| **US11** | Als **Nutzer** muss ich mich registrieren und anmelden, damit meine Meldungen und persönlichen Daten geschützt sind und mir zugeordnet werden. |
+
+**Kurze Analyse:** US1 bis US3 und US5 bis US6 bilden den Kern des Systems. US5 und US8 sind sicherheits- und rechtsrelevant. US7 und US9 sind Verwaltungsfunktionen für das Fundbüro. US11 ist eine technische Voraussetzung für alle Nutzerfunktionen. Die Stories sind klein und testbar. US4 und US10 sind Kandidaten für spätere Releases.
+
+---
+
+## Aufgabe 6 - Anwendungsfalldiagramm
+
+### Akteure
+
+- **Nutzer** (generalisierter Oberakteur von Verlierer und Finder)
+- **Verlierer** (Nutzer)
+- **Finder** (Nutzer)
+- **Sachbearbeiter** (Fundbüro)
+- **Benachrichtigungsdienst** (externes System, z. B. Push-/E-Mail-Dienst)
+
+### Beziehungen
+
+- Verlierer und Finder erben vom Nutzer. Der Nutzer führt „Registrieren / Anmelden“ und „Fundsachen suchen“ aus.
+- „Verlust melden“, „Eigentum nachweisen“ und „Abholtermin buchen“ werden vom Verlierer ausgeführt.
+- „Fund melden“ wird vom Finder ausgeführt.
+- „Fundsache erfassen und verwalten“ und „Herausgabe dokumentieren“ werden vom Sachbearbeiter ausgeführt.
+- `<<include>>`: „Verlust melden“ und „Fund melden“ schließen „Registrieren / Anmelden“ und „Abgleich durchführen“ ein; „Abgleich durchführen“ schließt „Benachrichtigung senden“ ein; „Herausgabe dokumentieren“ schließt „Eigentum nachweisen“ ein.
+- `<<extend>>`: „Abholtermin buchen“ erweitert „Eigentum nachweisen“ (optional bei erfolgreichem Nachweis).
 
 ```mermaid
 flowchart LR
-    Suchende([Suchende])
-    Finder([Finder])
-    Nutzer([Registrierter Nutzer])
+    Nutzer(["Nutzer"])
+    Verlierer(["Verlierer"])
+    Finder(["Finder"])
+    Sachbearbeiter(["Sachbearbeiter"])
+    Push(["<<System>>\nBenachrichtigungsdienst"])
 
-    Suchende -.-> Nutzer
-    Finder -.-> Nutzer
+    Verlierer -->|generalisiert| Nutzer
+    Finder -->|generalisiert| Nutzer
 
-    subgraph FundPunkt["Systemgrenze: FundPunkt Fundbuero-App"]
-        UC1([UC-01: Fundgegenstand beanspruchen & abholen])
-        UC2([UC-02: Nach Fundgegenstaenden suchen])
-        UC3([UC-03: Rueckgabeanfrage stornieren])
-        UC4([UC-04: Fundmeldung erstellen])
-        UC5([UC-05: Anspruch pruefen & bestaetigen/ablehnen])
-        UC6([UC-06: Rueckgabe dokumentieren])
-        UC7([UC-07: Anmelden / Authentifizieren])
+    subgraph FundbueroApp ["Fundbüro-App"]
+        UC1(("Registrieren /\nAnmelden"))
+        UC2(("Verlust melden"))
+        UC3(("Fund melden"))
+        UC4(("Fundsachen\nsuchen"))
+        UC5(("Abgleich\ndurchführen"))
+        UC6(("Benachrichtigung\nsenden"))
+        UC7(("Eigentum\nnachweisen"))
+        UC8(("Abholtermin\nbuchen"))
+        UC9(("Fundsache erfassen\nund verwalten"))
+        UC10(("Herausgabe\ndokumentieren"))
     end
 
-    Suchende --- UC1
-    Suchende --- UC2
-    Suchende --- UC3
+    Nutzer --- UC1
+    Nutzer --- UC4
+    Verlierer --- UC2
+    Verlierer --- UC7
+    Verlierer --- UC8
+    Finder --- UC3
+    Sachbearbeiter --- UC9
+    Sachbearbeiter --- UC10
 
-    Finder --- UC4
-    Finder --- UC5
-    Finder --- UC6
-
-    Nutzer --- UC7
-
-    UC1 -. "<<include>>" .-> UC7
-    UC4 -. "<<include>>" .-> UC7
-    UC5 -. "<<include>>" .-> UC7
-    UC3 -. "<<extend>>" .-> UC1
+    UC2 -. "<<include>>" .-> UC1
+    UC3 -. "<<include>>" .-> UC1
+    UC2 -. "<<include>>" .-> UC5
+    UC3 -. "<<include>>" .-> UC5
+    UC5 -. "<<include>>" .-> UC6
+    UC10 -. "<<include>>" .-> UC7
+    UC8 -. "<<extend>>" .-> UC7
+    UC6 --- Push
 ```
 
 ---
 
-## Aufgabe 7 – Strukturierter Anwendungsfall
+## Aufgabe 7 - Anwendungsfall Detaillieren
 
-- **Anwendungsfall-Name:** UC-01 – Fundgegenstand beanspruchen und zurückgeben
-- **Akteur(e):** Suchende (Primärakteur, z. B. Anna Berger), Finder (Sekundärakteur, z. B. Markus Lindner)
-- **Ziel:** Eine Suchende beansprucht einen gefundenen Gegenstand durch einen Eigentumsnachweis und erhält ihn nach Bestätigung durch den Finder zurück.
-- **Vorbedingungen:**
-  1. Suchende und Finder sind im System registriert und angemeldet.
-  2. Der gesuchte Gegenstand wurde bereits als Fundmeldung erfasst und befindet sich im Status *Gemeldet*.
-- **Nachbedingung:**
-  - *Erfolgsfall:* Die Rückgabeanfrage ist *Abgeschlossen*, die Fundmeldung befindet sich im Status *Zurückgegeben* und erscheint nicht mehr in der offenen Suche.
-  - *Fehler-/Abbruchfall:* Die Rückgabeanfrage wurde *Abgelehnt* oder *Storniert*, und die Fundmeldung befindet sich wieder im Status *Gemeldet*.
-- **Hauptablauf:**
-  1. Die Suchende sucht nach einem verlorenen Gegenstand und öffnet eine passende Fundmeldung.
-  2. Die Suchende beschreibt ein eindeutiges Erkennungsmerkmal (Eigentumsnachweis) und sendet eine Rückgabeanfrage ab.
-  3. Das System prüft, ob die Fundmeldung noch im Status *Gemeldet* ist, legt die Rückgabeanfrage im Status *Angefragt* an und setzt die Fundmeldung auf *Beansprucht*.
-  4. Der Finder prüft den eingereichten Eigentumsnachweis gegen das verdeckte Sicherheitsmerkmal und bestätigt die Anfrage.
-  5. Das System setzt die Rückgabeanfrage auf *Bestätigt*, die Fundmeldung auf *Abholbereit* und gibt die Übergabedetails für die Suchende frei.
-  6. Bei der persönlichen Abholung bestätigt der Finder die Übergabe im System.
-  7. Das System setzt die Rückgabeanfrage auf *Abgeschlossen* und die Fundmeldung auf *Zurückgegeben*.
-- **Alternativer Ablauf:**
-  - *A1 (Ablehnung in Schritt 4):* Der Eigentumsnachweis stimmt nicht überein. Der Finder lehnt die Anfrage ab. Das System setzt die Anfrage auf *Abgelehnt* und die Fundmeldung wieder auf *Gemeldet*.
-  - *A2 (Stornierung vor Schritt 6):* Die Suchende bemerkt eine Verwechslung und storniert ihre Anfrage. Das System setzt die Anfrage auf *Storniert* und die Fundmeldung wieder auf *Gemeldet*.
-- **Ausnahmen:**
-  - *E1 (Leerer Eigentumsnachweis in Schritt 2):* Die Suchende gibt keinen Eigentumsnachweis an. Das System verweigert das Absenden und zeigt eine Fehlermeldung an.
-  - *E2 (Fundmeldung bereits beansprucht in Schritt 3):* Ein anderer Nutzer hat den Gegenstand bereits beansprucht. Das System bricht den Vorgang mit einem Hinweis ab.
-- **Beteiligte Systeme:** FundPunkt Web-Anwendung, Benachrichtigungsdienst (E-Mail).
+| Aspekt | Beschreibung |
+|---|---|
+| **Anwendungsfall-Name** | UC-02: Verlorenen Gegenstand melden und bei Treffer zurückerhalten |
+| **Akteure** | Primär: Verlierer. Sekundär: Finder, Sachbearbeiter, Benachrichtigungsdienst |
+| **Ziel** | Der Verlierer meldet seinen Verlust und erhält den Gegenstand nach Treffer und Eigentumsprüfung zurück. |
+| **Vorbedingungen** | Die App ist installiert. Der Verlierer ist registriert und angemeldet. Das System ist erreichbar. |
+| **Nachbedingung (Erfolg)** | Die Verlustmeldung ist gespeichert und der Treffer zugeordnet. Der Gegenstand ist an den Verlierer herausgegeben. Der Status steht auf „Herausgegeben“, und die Übergabe ist protokolliert. Der Finder wurde informiert. |
+| **Nachbedingung (Fehlschlag)** | Die Verlustmeldung bleibt aktiv („Offen“) und wird weiter mit neuen Funden abgeglichen. Bei Ablauf der Frist wird sie archiviert. |
+
+### Hauptablauf
+
+1. Der Verlierer wählt „Verlust melden“.
+2. Das System zeigt das Meldeformular (Kategorie, Beschreibung, Verlustort, Zeitraum, Foto, Kontakt).
+3. Der Verlierer füllt die Pflichtfelder aus und sendet das Formular ab.
+4. Das System validiert die Eingaben, speichert die Meldung und vergibt eine Meldenummer.
+5. Das System gleicht die Meldung mit vorhandenen Fundmeldungen ab und zeigt eine Liste ähnlicher Funde an (hier: keine Treffer).
+6. Das System bestätigt die Meldung. Sie ist als „Offen“ gespeichert.
+7. Der Finder meldet einen Fund. Das System gleicht automatisch ab und erkennt einen Treffer mit hoher Übereinstimmung.
+8. Das System sendet über den Benachrichtigungsdienst eine Nachricht an den Verlierer.
+9. Der Verlierer öffnet den Treffer und wählt „Das ist meiner“.
+10. Das System stellt Kontrollfragen zu nicht öffentlichen Merkmalen.
+11. Der Verlierer beantwortet die Fragen korrekt, das System bestätigt den Nachweis.
+12. Das System zeigt freie Abholtermine, der Verlierer wählt einen und bestätigt.
+13. Das System speichert den Termin, reserviert die Fundsache und erzeugt einen QR-Code.
+14. Das System erinnert den Verlierer am Abholtag per Push-Nachricht.
+15. Der Verlierer erscheint im Fundbüro. Der Sachbearbeiter scannt den QR-Code und prüft den Ausweis.
+16. Der Sachbearbeiter gibt den Gegenstand heraus und bestätigt die Herausgabe im System.
+17. Das System setzt den Status auf „Herausgegeben“, protokolliert die Übergabe und benachrichtigt Verlierer und Finder.
+
+### Alternative Abläufe
+
+- **A1 (ab Schritt 5, Treffer sofort vorhanden):** Das System zeigt direkt passende Funde. Der Verlierer wählt einen aus, weiter mit Schritt 9.
+- **A2 (ab Schritt 9, Treffer passt nicht):** Der Verlierer wählt „Nicht mein Gegenstand“. Das System verwirft den Treffer für diese Meldung, die Meldung bleibt offen.
+- **A3 (ab Schritt 12, Termin nicht passend):** Der Verlierer kann den Gegenstand per Postversand anfordern (sofern angeboten) oder später erneut einen Termin buchen.
+- **A4 (ab Schritt 1, Foto fehlt):** Das Foto ist optional, die Meldung kann ohne Foto gesendet werden. Die Trefferquote sinkt dann.
+- **A5 (ab Schritt 15, Stellvertreter):** Eine bevollmächtigte Person holt den Gegenstand ab. Das System verlangt eine digitale Vollmacht.
+
+### Ausnahmen
+
+- **E1 (Schritt 4, Pflichtfelder fehlen):** Das System markiert die Felder, die Meldung wird nicht gespeichert, bis die Eingabe korrigiert ist.
+- **E2 (Schritt 4, kein Netz oder Serverfehler):** Das System speichert die Eingabe lokal als Entwurf und bietet an, sie später zu senden.
+- **E3 (Schritt 11, Kontrollfragen falsch beantwortet):** Nach zwei Fehlversuchen wird der Zugriff gesperrt. Der Verlierer muss sich im Fundbüro persönlich ausweisen.
+- **E4 (Schritt 8, Benachrichtigung nicht zustellbar):** Das System versucht es per E-Mail. Der Treffer bleibt in der App sichtbar.
+- **E5 (Schritt 15, Termin nicht wahrgenommen):** Die Reservierung läuft nach 7 Tagen ab, die Fundsache ist wieder frei. Der Verlierer wird informiert und kann neu buchen.
+- **E6 (Schritt 16, Eigentum unklar):** Der Sachbearbeiter verweigert die Herausgabe und vermerkt den Grund im System.
+- **E7 (Fund eines Dritten mit gleichen Merkmalen):** Mehrere Verlierer beanspruchen denselben Fund. Das System markiert den Konflikt und der Sachbearbeiter entscheidet.
+
+### Beteiligte Systeme
+
+- Fundbüro-App (mobiles Frontend für Nutzer)
+- Backend mit Datenbank (Meldungen, Fundsachen, Termine, Protokolle)
+- Matching-Komponente (Abgleich, optional Bilderkennung)
+- Push-/E-Mail-Benachrichtigungsdienst
+- Terminverwaltung
+- Verwaltungsoberfläche des Fundbüros mit QR-Scanner
+- Optional: Karten-/Geodienst für Orte und Standort
