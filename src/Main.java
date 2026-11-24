@@ -1,66 +1,63 @@
+/**
+ * Startklasse zum Testen der Fundbuero-Anwendung (Normalablauf und Fehlerfall).
+ */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("=== FundPunkt Demo: Normaler Ablauf (UC-01) ===");
+        System.out.println("=== Fundbuero-App Demo: Normaler Ablauf (Lena & Tom) ===");
 
-        // 1. Objekte erzeugen (analog zum Objektdiagramm aus Uebung 3)
-        Nutzer anna = new Nutzer("N-01", "Anna Berger", "anna.berger@hm.edu");
-        Nutzer markus = new Nutzer("N-02", "Markus Lindner", "markus.lindner@hm.edu");
+        // 1. Nutzer erzeugen (Personas aus Uebung 1)
+        Nutzer tom = new Nutzer("N-01", "Tom Weber", "tom.weber@beispiel.de");
+        Nutzer lena = new Nutzer("N-02", "Lena Hoffmann", "lena.hoffmann@hm.edu");
+
+        // 2. Fundmeldung anlegen
         Fundmeldung rucksack = new Fundmeldung(
                 "F-10",
-                "Blauer Rucksack",
-                "Taschen",
-                "R-Bau Hoersaal R1.046",
-                "2026-11-23",
-                "Roter HM-Schluesselanhaenger",
-                markus
+                "Schwarzer Rucksack (Eastpak)",
+                "Tasche/Rucksack",
+                "Endhaltestelle S-Bahn S3 (GPS)",
+                "2026-11-23 20:10",
+                "Roter Anhaenger am Reissverschluss, Laptop im Innenfach",
+                tom
         );
-
         System.out.println("Angelegte Fundmeldung: " + rucksack);
 
-        // 2. Rueckgabeanfrage erstellen und einreichen
-        RueckgabeAnfrage anfrage101 = new RueckgabeAnfrage(
+        // 3. Rueckgabeanfrage erstellen und einreichen
+        RueckgabeAnfrage anfrage = new RueckgabeAnfrage(
                 "A-101",
-                "Roter HM-Schluesselanhaenger in Vordertasche",
-                anna,
+                "Roter Anhaenger am Reissverschluss, Laptop im Innenfach",
+                lena,
                 rucksack
         );
-        boolean eingereicht = anfrage101.einreichen();
-        System.out.println("Anfrage eingereicht? " + eingereicht + " -> " + anfrage101);
+        boolean eingereicht = anfrage.einreichen();
+        System.out.println("Anfrage eingereicht? " + eingereicht + " -> " + anfrage);
         System.out.println("Fundstatus nach Anfrage: " + rucksack.getStatus());
 
-        // 3. Finder prueft Sicherheitsmerkmal und bestaetigt
-        boolean merkmalPasst = rucksack.pruefeSicherheitsmerkmal(anfrage101.getEigentumsnachweis());
-        System.out.println("Eigentumsnachweis gueltig? " + merkmalPasst);
-        if (merkmalPasst) {
-            anfrage101.bestaetigen();
+        // 4. Eigentumsnachweis pruefen und Anfrage bestaetigen
+        boolean nachweisOk = rucksack.pruefeSicherheitsmerkmal(anfrage.getEigentumsnachweis());
+        System.out.println("Eigentumsnachweis gueltig? " + nachweisOk);
+        if (nachweisOk) {
+            anfrage.bestaetigen();
         }
-        System.out.println("Nach Bestaetigung:     " + anfrage101);
-        System.out.println("Fundstatus jetzt:      " + rucksack.getStatus());
+        System.out.println("Nach Bestaetigung: " + anfrage);
+        System.out.println("Fundstatus jetzt:  " + rucksack.getStatus());
 
-        // 4. Uebergabe dokumentieren
-        boolean uebergeben = anfrage101.rueckgabeBestaetigen();
-        System.out.println("Rueckgabe erfasst?     " + uebergeben + " -> " + rucksack.getStatus());
+        // 5. Rueckgabe abschliessen und Randfall pruefen (Stornierung danach nicht mehr moeglich)
+        boolean zurueckgegeben = anfrage.rueckgabeBestaetigen();
+        System.out.println("Rueckgabe erfasst? " + zurueckgegeben + " -> " + rucksack.getStatus());
+        System.out.println("Stornierung nach Rueckgabe moeglich? " + anfrage.stornieren() + " (erwartet: false)");
 
-        // 5. Rand-/Fehlerfall: Stornierung nach Abschluss darf nicht erlaubt sein
-        boolean stornoVersuch = anfrage101.stornieren();
-        System.out.println("Stornierung nach Rueckgabe moeglich? " + stornoVersuch + " (erwartet: false)");
-
-        System.out.println("\n=== Fehlerfall: Selbst-Beanspruchung (Review-Erkenntnis aus Uebung 3) ===");
-        Fundmeldung flasche = new Fundmeldung(
+        // 6. Fehlerfall: Finder darf eigenen Fund nicht selbst beanspruchen
+        System.out.println("\n=== Fehlerfall: Selbst-Beanspruchung ===");
+        Fundmeldung schluessel = new Fundmeldung(
                 "F-11",
-                "Edelstahl-Trinkflasche",
-                "Sonstiges",
-                "Mensa",
-                "2026-11-23",
-                "Aufkleber auf dem Boden",
-                markus
+                "Schluesselbund",
+                "Schluessel",
+                "S-Bahn Linie S3",
+                "2026-11-23 20:15",
+                "Blauer Anhaenger",
+                tom
         );
-        RueckgabeAnfrage selbstAnfrage = new RueckgabeAnfrage(
-                "A-102",
-                "Aufkleber auf dem Boden",
-                markus,
-                flasche
-        );
+        RueckgabeAnfrage selbstAnfrage = new RueckgabeAnfrage("A-102", "Blauer Anhaenger", tom, schluessel);
         System.out.println("Selbst-Beanspruchung erlaubt? " + selbstAnfrage.einreichen() + " (erwartet: false)");
     }
 }
