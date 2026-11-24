@@ -1,29 +1,34 @@
-# Übungsblatt 4: UML-Klassendiagramm & Java-Implementierung – „FundPunkt“
+# Übungsblatt 4: UML-Klassendiagramm & Java-Implementierung – Fundbüro-App
 
-## Aufgabe 1 – Einfaches UML-Klassendiagramm
+---
 
-Überführung des Objektdiagramms aus Übungsblatt 3 in ein erstes Klassendiagramm mit den drei zentralen fachlichen Klassen (`Nutzer`, `Fundmeldung`, `RueckgabeAnfrage`), einfachen binären Assoziationen und Multiplizitäten.
+## Aufgabe 1 - Erstellen Sie ein Klassendiagramm
+
+Überführung des Objektdiagramms aus Übungsblatt 3 in ein einfaches UML-Klassendiagramm mit den vier zentralen fachlichen Klassen (`Nutzer`, `Verlustmeldung`, `Fundmeldung`, `Treffer`), einfachen binären Assoziationen und Multiplizitäten.
 
 ```mermaid
 classDiagram
     class Nutzer
+    class Verlustmeldung
     class Fundmeldung
-    class RueckgabeAnfrage
+    class Treffer
 
+    Nutzer "1" -- "0..*" Verlustmeldung : meldet
     Nutzer "1" -- "0..*" Fundmeldung : meldet
-    Nutzer "1" -- "0..*" RueckgabeAnfrage : stellt
-    RueckgabeAnfrage "0..*" -- "1" Fundmeldung : bezieht sich auf
+    Verlustmeldung "1" -- "0..*" Treffer : zugeordnet
+    Fundmeldung "1" -- "0..*" Treffer : zugeordnet
 ```
 
-### Begründung der Multiplizitäten (Beispiel: `Nutzer` – `Fundmeldung`)
-- **Richtung `Nutzer` zu `Fundmeldung` (`0..*`):** Ein registrierter Nutzer kann rein als Suchender angemeldet sein (z. B. Anna Berger) und hat daher `0` eigene Fundmeldungen erfasst. Ein aktiver Finder (z. B. Markus Lindner) kann beliebig viele (`*`) Fundmeldungen anlegen.
-- **Richtung `Fundmeldung` zu `Nutzer` (`1`):** Jede Fundmeldung im System muss genau einem (`1`) registrierten Nutzer als Finder zugeordnet sein, damit eindeutig feststeht, wer den Gegenstand verwahrt und eingehende Eigentumsnachweise prüfen darf.
+### Begründung der Multiplizitäten (Beispiel: `Verlustmeldung` – `Treffer`)
+
+- **Richtung `Verlustmeldung` zu `Treffer` (`0..*`):** Direkt nach dem Absenden einer Verlustmeldung liegt möglicherweise noch kein passender Fund vor (`0` Treffer, wie bei Lena um 18:30 Uhr). Später können mehrere ähnliche Fundmeldungen gefunden und abgeglichen werden (`*`).
+- **Richtung `Treffer` zu `Verlustmeldung` (`1`):** Ein Treffer entsteht erst beim Abgleich zwischen einer konkreten Verlustmeldung und einer konkreten Fundmeldung und gehört daher immer zu genau einer (`1`) Verlustmeldung.
 
 ---
 
-## Aufgabe 2 – Detailliertes UML-Klassendiagramm
+## Aufgabe 2 - Detaillieren Sie Ihr Klassendiagramm
 
-Erweiterung der ersten Fassung um Attribute (mit Datentypen und Sichtbarkeiten) sowie fachlich sinnvolle Methoden (mit Sichtbarkeiten, Parameterlisten und Rückgabetypen). Bewusst ohne Vererbung, Interfaces oder Entwurfsmuster.
+Erweiterung der ersten Fassung um Attribute (mit Datentypen und Sichtbarkeiten) sowie fachlich sinnvolle Methoden (mit Sichtbarkeiten, Parameterlisten und Rückgabetypen) – bewusst ohne Vererbung, Interfaces oder Entwurfsmuster.
 
 ```mermaid
 classDiagram
@@ -31,136 +36,150 @@ classDiagram
         -String nutzerId
         -String name
         -String email
+        -List~Verlustmeldung~ verlustmeldungen
         -List~Fundmeldung~ fundmeldungen
-        -List~RueckgabeAnfrage~ anfragen
         +Nutzer(String nutzerId, String name, String email)
         +String getNutzerId()
         +String getName()
         +String getEmail()
-        +void fundmeldungHinzufuegen(Fundmeldung fundmeldung)
-        +void anfrageHinzufuegen(RueckgabeAnfrage anfrage)
+        +void verlustmeldungHinzufuegen(Verlustmeldung meldung)
+        +void fundmeldungHinzufuegen(Fundmeldung meldung)
+        +List~Verlustmeldung~ getVerlustmeldungen()
         +List~Fundmeldung~ getFundmeldungen()
-        +List~RueckgabeAnfrage~ getAnfragen()
+        +String toString()
+    }
+
+    class Verlustmeldung {
+        -String meldenummer
+        -String kategorie
+        -String beschreibung
+        -String farbe
+        -String marke
+        -String ort
+        -String zeitraum
+        -String status
+        -Nutzer verlierer
+        +Verlustmeldung(String meldenummer, String kategorie, String beschreibung, String farbe, String marke, String ort, String zeitraum, Nutzer verlierer)
+        +String getMeldenummer()
+        +String getKategorie()
+        +String getBeschreibung()
+        +String getFarbe()
+        +String getMarke()
+        +String getOrt()
+        +String getZeitraum()
+        +String getStatus()
+        +Nutzer getVerlierer()
+        +void setStatus(String status)
         +String toString()
     }
 
     class Fundmeldung {
         -String fundId
-        -String titel
         -String kategorie
-        -String fundort
-        -String funddatum
-        -String sicherheitsmerkmal
-        -String status
+        -String beschreibung
+        -String farbe
+        -String marke
+        -String standort
+        -String uhrzeit
         -Nutzer finder
-        +Fundmeldung(String fundId, String titel, String kategorie, String fundort, String funddatum, String sicherheitsmerkmal, Nutzer finder)
+        +Fundmeldung(String fundId, String kategorie, String beschreibung, String farbe, String marke, String standort, String uhrzeit, Nutzer finder)
         +String getFundId()
-        +String getTitel()
         +String getKategorie()
-        +String getFundort()
-        +String getFunddatum()
-        +String getStatus()
+        +String getBeschreibung()
+        +String getFarbe()
+        +String getMarke()
+        +String getStandort()
+        +String getUhrzeit()
         +Nutzer getFinder()
-        +boolean pruefeSicherheitsmerkmal(String angabe)
-        +void setStatus(String status)
-        +boolean archivieren()
         +String toString()
     }
 
-    class RueckgabeAnfrage {
-        -String anfrageId
-        -String eigentumsnachweis
+    class Treffer {
+        -String trefferId
+        -int punktzahl
         -String status
-        -Nutzer suchende
+        -Verlustmeldung verlustmeldung
         -Fundmeldung fundmeldung
-        +RueckgabeAnfrage(String anfrageId, String eigentumsnachweis, Nutzer suchende, Fundmeldung fundmeldung)
-        +String getAnfrageId()
-        +String getEigentumsnachweis()
+        +Treffer(String trefferId, Verlustmeldung verlustmeldung, Fundmeldung fundmeldung)
+        +String getTrefferId()
+        +int getPunktzahl()
         +String getStatus()
-        +Nutzer getSuchende()
+        +Verlustmeldung getVerlustmeldung()
         +Fundmeldung getFundmeldung()
-        +boolean einreichen()
+        +int berechnePunktzahl(boolean zeitPasst)
+        +boolean istTreffer()
+        +boolean istAehnlicheFundsache()
         +boolean bestaetigen()
-        +boolean ablehnen()
-        +boolean stornieren()
-        +boolean rueckgabeBestaetigen()
+        +boolean verwerfen()
         +String toString()
     }
 
+    Nutzer "1" -- "0..*" Verlustmeldung : meldet
     Nutzer "1" -- "0..*" Fundmeldung : meldet
-    Nutzer "1" -- "0..*" RueckgabeAnfrage : stellt
-    RueckgabeAnfrage "0..*" -- "1" Fundmeldung : bezieht sich auf
+    Verlustmeldung "1" -- "0..*" Treffer : zugeordnet
+    Fundmeldung "1" -- "0..*" Treffer : zugeordnet
 ```
 
 ---
 
-## Aufgabe 3 – Bereitstellung als PNG & erster Git-Commit
+## Aufgabe 3 - Stellen Sie Ihr Klassendiagramm als PNG bereit
 
 Das detaillierte Klassendiagramm aus Aufgabe 2 wurde als kompaktes PNG exportiert und im Repository unter `docs/04-klassendiagramm/klassendiagramm.png` abgelegt:
 
-![Detailliertes Klassendiagramm FundPunkt](klassendiagramm.png)
+![Detailliertes Klassendiagramm der Fundbüro-App](klassendiagramm.png)
 
-Die Dokumentation und das PNG wurden vor der Java-Implementierung in einem eigenen Commit auf dem Übungsbranch gesichert.
+Dokumentation und PNG wurden vor der Java-Implementierung in einem eigenen Commit auf dem Übungsbranch gesichert.
 
 ---
 
-## Aufgabe 4 – Implementierung der ersten Java-Klassen & Modellabgleich
+## Aufgabe 4 - Implementieren Sie erste Java-Klassen mit Copilot
 
-Auf Basis von `docs/04-klassendiagramm/klassendiagramm.png` wurden die drei fachlichen Klassen sowie die Startklasse ausschließlich mit der Java-Standardbibliothek (ohne Vererbung oder Frameworks) in `src/` umgesetzt:
+Auf Basis von `docs/04-klassendiagramm/klassendiagramm.png` wurden die fachlichen Klassen sowie `Main.java` ausschließlich mit der Java-Standardbibliothek (ohne Vererbung oder Frameworks) in `src/` umgesetzt:
 
 - `src/Nutzer.java`
+- `src/Verlustmeldung.java`
 - `src/Fundmeldung.java`
-- `src/RueckgabeAnfrage.java`
+- `src/Treffer.java`
 - `src/Main.java`
 
-### Abgleich zwischen PNG-Klassendiagramm und Java-Code
-- **Klassen & Attribute:** Alle modellierten Klassen, privaten Attribute (`-`), Datentypen (`String`, `List<...>`, Klassenreferenzen) und Konstruktoren entsprechen 1:1 dem Klassendiagramm.
-- **Multiplizitäten:**
-  - `1` zu `0..*` (`Nutzer` – `Fundmeldung` und `Nutzer` – `RueckgabeAnfrage`) ist über `List<Fundmeldung>` bzw. `List<RueckgabeAnfrage>` in `Nutzer` sowie Einzelreferenzen (`finder`, `suchende`) auf der Gegenseite abgebildet.
-  - `0..*` zu `1` (`RueckgabeAnfrage` – `Fundmeldung`) ist über die Referenz `fundmeldung` in `RueckgabeAnfrage` realisiert.
-- **Methoden & Sichtbarkeiten:** Alle öffentlichen (`+`) Methoden, Parameterlisten und Rückgabetypen (`void`, `boolean`, `String`, `List<...>`) stimmen exakt mit dem Diagramm überein. Das `sicherheitsmerkmal` wird gemäß `N-020` nicht in `toString()` ausgegeben.
+### Abgleich von Code und Klassendiagramm
+
+- **Klassen & Attribute:** Alle vier modellierten Klassen, Sichtbarkeiten (`private` für Attribute, `public` für Methoden) und Datentypen stimmen 1:1 mit dem PNG überein.
+- **Assoziationen & Multiplizitäten:** `Nutzer` verwaltet `List<Verlustmeldung>` und `List<Fundmeldung>` (`0..*`), während `Verlustmeldung` genau einen `verlierer` (`1`), `Fundmeldung` genau einen `finder` (`1`) und `Treffer` genau eine `verlustmeldung` (`1`) sowie eine `fundmeldung` (`1`) referenziert.
+- **Methoden:** `berechnePunktzahl(boolean zeitPasst)` bildet das in Übung 3 definierte Punktesystem (`F-040`: Kategorie Pflicht, Ort 30, Zeit 30, Farbe 20, Marke 20; Treffer ab 70, ähnlich ab 50) direkt im Code ab.
 
 ---
 
-## Aufgabe 5 – Starten, Testen und Erklären der Java-Anwendung
+## Aufgabe 5 - Starten, testen und erklären Sie Ihre Java-Anwendung
 
 ### 1. Ausführung im Terminal
+
 ```bash
 javac src/*.java
 java -cp src Main
 ```
 
-### 2. Geprüfte Abläufe & Konsolenausgabe
-In `src/Main.java` werden mehrere Objekte erzeugt (`anna`, `markus`, `rucksack`, `anfrage101`, `flasche`, `selbstAnfrage`), die modellierten Beziehungen hergestellt und sowohl der **normale Ablauf (UC-01)** als auch zwei **Rand-/Fehlerfälle** (Stornierung nach Abschluss & Selbst-Beanspruchung) getestet:
+### 2. Geprüfte Abläufe und Ausgaben
 
 ```text
-=== FundPunkt Demo: Normaler Ablauf (UC-01) ===
-Angelegte Fundmeldung: Fundmeldung{fundId='F-10', titel='Blauer Rucksack', kategorie='Taschen', fundort='R-Bau Hoersaal R1.046', status='GEMELDET', finder=Markus Lindner}
-Anfrage eingereicht? true -> RueckgabeAnfrage{anfrageId='A-101', status='ANGEFRAGT', suchende=Anna Berger, fundmeldung=Blauer Rucksack}
-Fundstatus nach Anfrage: BEANSPRUCHT
-Eigentumsnachweis gueltig? true
-Nach Bestaetigung:     RueckgabeAnfrage{anfrageId='A-101', status='BESTAETIGT', suchende=Anna Berger, fundmeldung=Blauer Rucksack}
-Fundstatus jetzt:      ABHOLBEREIT
-Rueckgabe erfasst?     true -> ZURUECKGEGEBEN
-Stornierung nach Rueckgabe moeglich? false (erwartet: false)
+=== Fundbuero-App Demo: Szenario Lena & Tom (100 Punkte) ===
+Verlustmeldung: Verlustmeldung{meldenummer='V-01', kategorie='Tasche/Rucksack', farbe='schwarz', marke='Eastpak', status='Offen', verlierer=Lena Hoffmann}
+Fundmeldung:    Fundmeldung{fundId='F-01', kategorie='Tasche/Rucksack', farbe='schwarz', marke='Eastpak', standort='Endhaltestelle S-Bahn (GPS)', finder=Tom Weber}
+Berechnete Punktzahl: 100
+Ist Treffer (>= 70)? true
+Status der Verlustmeldung nach Treffer: Treffer zugeordnet
+Treffer bestaetigt? true -> Treffer{trefferId='T-01', punktzahl=100, status='Bestaetigt', verlust='V-01', fund='F-01'}
+Status der Verlustmeldung nach Bestaetigung: Reserviert
 
-=== Fehlerfall: Selbst-Beanspruchung (Review-Erkenntnis aus Uebung 3) ===
-Selbst-Beanspruchung erlaubt? false (erwartet: false)
+=== Randfall 1: Abweichende Kategorie (F-040 Akzeptanzkriterium 2) ===
+Punktzahl bei Schluessel vs. Rucksack: 0 (Treffer: false)
+
+=== Randfall 2: 60 Punkte -> nur aehnliche Fundsache (F-040 Akzeptanzkriterium 4) ===
+Punktzahl: 60 | Treffer: false | Aehnliche Fundsache: true
 ```
 
-### 3. Erklärung der Objektbeziehungen, Methoden und Modelltreue
-- **Wie die Objekte verbunden sind:**
-  - Beim Erzeugen von `rucksack` (`Fundmeldung`) wird `markus` (`Nutzer`) als `finder` übergeben; der Konstruktor trägt die Fundmeldung automatisch auch in `markus.fundmeldungen` ein (bidirektionale Verknüpfung).
-  - Beim Erzeugen von `anfrage101` (`RueckgabeAnfrage`) werden `anna` als `suchende` und `rucksack` als `fundmeldung` verknüpft; `anfrage101` wird gleichzeitig in `anna.anfragen` registriert.
-- **Was die Methoden bewirken:**
-  - `einreichen()` prüft, ob die Fundmeldung noch `GEMELDET` ist, der Eigentumsnachweis nicht leer ist und Suchende ungleich Finder sind. Bei Erfolg wechselt die Anfrage auf `ANGEFRAGT` und die Fundmeldung auf `BEANSPRUCHT`.
-  - `pruefeSicherheitsmerkmal(...)` vergleicht die Angabe der Suchenden mit dem verdeckten Sicherheitsmerkmal der Fundmeldung.
-  - `bestaetigen()` setzt die Anfrage auf `BESTAETIGT` und die Fundmeldung auf `ABHOLBEREIT`.
-  - `rueckgabeBestaetigen()` schließt den Vorgang ab (`ABGESCHLOSSEN` bzw. `ZURUECKGEGEBEN`).
-  - `stornieren()` gibt im erlaubten Zustand die Fundmeldung wieder auf `GEMELDET` frei und liefert nach abgeschlossener Rückgabe korrekt `false` zurück.
-- **Übereinstimmung mit dem Klassendiagramm:** Alle genutzten Klassen, Attribute, Beziehungen und Methoden in `src/` entsprechen vollständig dem in `docs/04-klassendiagramm/klassendiagramm.png` modellierten Entwurf.
+### 3. Erklärung der Objektbeziehungen und Methoden
 
----
-
-### Git-Abgabe (zweiter Commit & Pull Request)
-Der Java-Code in `src/` wird getrennt vom Modell-Commit gesichert, gepusht und nach Review durch das Teammitglied per Pull Request in `main` zusammengeführt.
+1. **Objektverknüpfung:** Im Konstruktor von `Verlustmeldung` bzw. `Fundmeldung` wird das jeweilige Objekt automatisch beim übergebenen `Nutzer` (`Lena Hoffmann` bzw. `Tom Weber`) in die entsprechende Liste eingetragen. `Treffer` verbindet anschließend beide Meldungen.
+2. **Punkteberechnung (`berechnePunktzahl`):** Stimmen die Kategorien nicht überein, werden sofort `0` Punkte vergeben (Randfall 1). Bei gleicher Kategorie werden Ort (30), Zeit (30), Farbe (20) und Marke (20) addiert. Ab 70 Punkten setzt das System den Status der Verlustmeldung automatisch auf `"Treffer zugeordnet"`.
+3. **Statusübergänge (`bestaetigen` / `verwerfen`):** Bestätigt Lena den Treffer nach Eigentumsnachweis und Terminbuchung, wechselt der Status von `Verlustmeldung` auf `"Reserviert"`. Bei 60 Punkten (Randfall 2) gilt `istTreffer() == false`, aber `istAehnlicheFundsache() == true`.
