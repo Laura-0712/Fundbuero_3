@@ -4,7 +4,14 @@
 
 ## Aufgabe 1 - Erstellen Sie ein Klassendiagramm
 
-Aufbauend auf den Anforderungen (Übungen 1–3) werden die drei zentralen fachlichen Klassen für die Fundmeldung und Rückgabeabwicklung (`Nutzer`, `Fundmeldung`, `RueckgabeAnfrage`) mit einfachen binären Assoziationen und Multiplizitäten modelliert.
+### Übergang & Design-Entscheidung zu Übungsblatt 3
+
+Aus den in Übungsblatt 3 identifizierten Domänenobjekten (`Nutzer`, `Verlustmeldung`, `Fundmeldung`, `Fundsache`, `Treffer`, `Kontrollfrage`, `Abholtermin`, `Vollmacht`, `Herausgabe`) wird für den ersten lauffähigen Java-Prototyp (Vorgabe: 3–4 fachliche Klassen) bewusst der zentrale Teilprozess **Fundmeldung erfassen, Eigentum prüfen und Rückgabe abwickeln** (`F-030`, `F-060`, `F-080`, `F-090`) herausgegriffen und kompakt modelliert:
+
+- **`Nutzer`** wird unverändert aus Übungsblatt 3 übernommen (ein Nutzer kann je nach Vorgang Finder oder Verlierer/Suchender sein).
+- **`Fundmeldung`** bündelt für diese erste Ausbaustufe die gemeldeten Angaben mit den Verwaltungsattributen der physischen `Fundsache` (`status` und das nicht öffentliche `sicherheitsmerkmal` für die Kontrollfrage nach `F-060`).
+- **`RueckgabeAnfrage`** bildet den Anspruch eines Verlierers („Das ist meiner“ aus `UC-02`, Schritt 9–11) inklusive Eigentumsnachweis (`Kontrollfrage`) und Statusverlauf bis zur bestätigten Rückgabe ab.
+- Weitere Objekte aus Übungsblatt 3 (`Verlustmeldung`, `Treffer`, `Abholtermin`, `Vollmacht`) sind als Erweiterung für die nächsten Ausbaustufen vorgesehen.
 
 ```mermaid
 classDiagram
