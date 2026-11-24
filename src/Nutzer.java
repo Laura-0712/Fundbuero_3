@@ -10,15 +10,15 @@ public class Nutzer {
     private String nutzerId;
     private String name;
     private String email;
+    private List<Verlustmeldung> verlustmeldungen;
     private List<Fundmeldung> fundmeldungen;
-    private List<RueckgabeAnfrage> anfragen;
 
     public Nutzer(String nutzerId, String name, String email) {
         this.nutzerId = nutzerId;
         this.name = name;
         this.email = email;
+        this.verlustmeldungen = new ArrayList<>();
         this.fundmeldungen = new ArrayList<>();
-        this.anfragen = new ArrayList<>();
     }
 
     public String getNutzerId() {
@@ -33,24 +33,24 @@ public class Nutzer {
         return email;
     }
 
-    public void fundmeldungHinzufuegen(Fundmeldung fundmeldung) {
-        if (fundmeldung != null && !fundmeldungen.contains(fundmeldung)) {
-            fundmeldungen.add(fundmeldung);
+    public void verlustmeldungHinzufuegen(Verlustmeldung meldung) {
+        if (meldung != null && !verlustmeldungen.contains(meldung)) {
+            verlustmeldungen.add(meldung);
         }
     }
 
-    public void anfrageHinzufuegen(RueckgabeAnfrage anfrage) {
-        if (anfrage != null && !anfragen.contains(anfrage)) {
-            anfragen.add(anfrage);
+    public void fundmeldungHinzufuegen(Fundmeldung meldung) {
+        if (meldung != null && !fundmeldungen.contains(meldung)) {
+            fundmeldungen.add(meldung);
         }
+    }
+
+    public List<Verlustmeldung> getVerlustmeldungen() {
+        return new ArrayList<>(verlustmeldungen);
     }
 
     public List<Fundmeldung> getFundmeldungen() {
         return new ArrayList<>(fundmeldungen);
-    }
-
-    public List<RueckgabeAnfrage> getAnfragen() {
-        return new ArrayList<>(anfragen);
     }
 
     @Override
