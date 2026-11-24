@@ -6,56 +6,45 @@ public class Fundmeldung {
     private String fundId;
     private String titel;
     private String kategorie;
-    private String beschreibung;
-    private String farbe;
-    private String marke;
-    private String ort;
-    private String zeitraum;
+    private String fundort;
+    private String funddatum;
+    private String sicherheitsmerkmal;
     private String status;
-    private Nutzer verlierer;
+    private Nutzer finder;
 
-    public Verlustmeldung(String meldenummer, String kategorie, String beschreibung,
-                          String farbe, String marke, String ort, String zeitraum, Nutzer verlierer) {
-        this.meldenummer = meldenummer;
+    public Fundmeldung(String fundId, String titel, String kategorie, String fundort,
+                       String funddatum, String sicherheitsmerkmal, Nutzer finder) {
+        this.fundId = fundId;
+        this.titel = titel;
         this.kategorie = kategorie;
-        this.beschreibung = beschreibung;
-        this.farbe = farbe;
-        this.marke = marke;
-        this.ort = ort;
-        this.zeitraum = zeitraum;
-        this.status = "Offen";
-        this.verlierer = verlierer;
-        if (verlierer != null) {
-            verlierer.verlustmeldungHinzufuegen(this);
+        this.fundort = fundort;
+        this.funddatum = funddatum;
+        this.sicherheitsmerkmal = sicherheitsmerkmal;
+        this.status = "GEMELDET";
+        this.finder = finder;
+        if (finder != null) {
+            finder.fundmeldungHinzufuegen(this);
         }
     }
 
-    public String getMeldenummer() {
-        return meldenummer;
+    public String getFundId() {
+        return fundId;
+    }
+
+    public String getTitel() {
+        return titel;
     }
 
     public String getKategorie() {
         return kategorie;
     }
 
-    public String getBeschreibung() {
-        return beschreibung;
+    public String getFundort() {
+        return fundort;
     }
 
-    public String getFarbe() {
-        return farbe;
-    }
-
-    public String getMarke() {
-        return marke;
-    }
-
-    public String getOrt() {
-        return ort;
-    }
-
-    public String getZeitraum() {
-        return zeitraum;
+    public String getFunddatum() {
+        return funddatum;
     }
 
     public String getStatus() {
@@ -95,10 +84,9 @@ public class Fundmeldung {
                 "fundId='" + fundId + '\'' +
                 ", titel='" + titel + '\'' +
                 ", kategorie='" + kategorie + '\'' +
-                ", farbe='" + farbe + '\'' +
-                ", marke='" + marke + '\'' +
+                ", fundort='" + fundort + '\'' +
                 ", status='" + status + '\'' +
-                ", verlierer=" + (verlierer != null ? verlierer.getName() : "unbekannt") +
+                ", finder=" + (finder != null ? finder.getName() : "unbekannt") +
                 '}';
     }
 }
