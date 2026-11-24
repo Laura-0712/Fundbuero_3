@@ -4,6 +4,11 @@
 
 **Gewählte Fallstudie:** Fundbüro-App (**FundPunkt**)
 
+**Kurzbeschreibung:**
+FundPunkt ist eine digitale Fundbüro-Anwendung (z. B. für einen Hochschulcampus oder eine Gemeinde), mit der gefundene und verlorene Gegenstände schnell gemeldet, gezielt durchsucht und nach erfolgreicher Eigentumsprüfung sicher an ihre Besitzer zurückgegeben werden können.
+
+---
+
 ## Aufgabe 3 – Personas
 
 ### Persona 1: Anna Berger (Suchende / Verliererin)
@@ -91,7 +96,7 @@ flowchart LR
     UC1 -. "<<include>>" .-> UC7
     UC4 -. "<<include>>" .-> UC7
     UC5 -. "<<include>>" .-> UC7
-    UC1 -. "<<extend>>" .-> UC3
+    UC3 -. "<<extend>>" .-> UC1
 ```
 
 ---
