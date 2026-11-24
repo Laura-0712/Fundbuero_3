@@ -9,11 +9,9 @@ Aufbauend auf den Anforderungen (Übungen 1–3) werden die drei zentralen fachl
 ```mermaid
 classDiagram
     class Nutzer
-    class Verlustmeldung
     class Fundmeldung
-    class Treffer
+    class RueckgabeAnfrage
 
-    Nutzer "1" -- "0..*" Verlustmeldung : meldet
     Nutzer "1" -- "0..*" Fundmeldung : meldet
     Nutzer "1" -- "0..*" RueckgabeAnfrage : stellt
     Fundmeldung "1" -- "0..*" RueckgabeAnfrage : betrifft
@@ -36,85 +34,62 @@ classDiagram
         -String nutzerId
         -String name
         -String email
-        -List~Verlustmeldung~ verlustmeldungen
         -List~Fundmeldung~ fundmeldungen
+        -List~RueckgabeAnfrage~ anfragen
         +Nutzer(String nutzerId, String name, String email)
         +String getNutzerId()
         +String getName()
         +String getEmail()
-        +void verlustmeldungHinzufuegen(Verlustmeldung meldung)
-        +void fundmeldungHinzufuegen(Fundmeldung meldung)
-        +List~Verlustmeldung~ getVerlustmeldungen()
+        +void fundmeldungHinzufuegen(Fundmeldung fundmeldung)
+        +void anfrageHinzufuegen(RueckgabeAnfrage anfrage)
         +List~Fundmeldung~ getFundmeldungen()
-        +String toString()
-    }
-
-    class Verlustmeldung {
-        -String meldenummer
-        -String kategorie
-        -String beschreibung
-        -String farbe
-        -String marke
-        -String ort
-        -String zeitraum
-        -String status
-        -Nutzer verlierer
-        +Verlustmeldung(String meldenummer, String kategorie, String beschreibung, String farbe, String marke, String ort, String zeitraum, Nutzer verlierer)
-        +String getMeldenummer()
-        +String getKategorie()
-        +String getBeschreibung()
-        +String getFarbe()
-        +String getMarke()
-        +String getOrt()
-        +String getZeitraum()
-        +String getStatus()
-        +Nutzer getVerlierer()
-        +void setStatus(String status)
+        +List~RueckgabeAnfrage~ getAnfragen()
         +String toString()
     }
 
     class Fundmeldung {
         -String fundId
+        -String titel
         -String kategorie
-        -String beschreibung
-        -String farbe
-        -String marke
-        -String standort
-        -String uhrzeit
-        -Nutzer finder
-        +Fundmeldung(String fundId, String kategorie, String beschreibung, String farbe, String marke, String standort, String uhrzeit, Nutzer finder)
-        +String getFundId()
-        +String getKategorie()
-        +String getBeschreibung()
-        +String getFarbe()
-        +String getMarke()
-        +String getStandort()
-        +String getUhrzeit()
-        +Nutzer getFinder()
-        +String toString()
-    }
-
-    class Treffer {
-        -String trefferId
-        -int punktzahl
+        -String fundort
+        -String funddatum
+        -String sicherheitsmerkmal
         -String status
-        -Verlustmeldung verlustmeldung
-        -Fundmeldung fundmeldung
-        +Treffer(String trefferId, Verlustmeldung verlustmeldung, Fundmeldung fundmeldung)
-        +String getTrefferId()
-        +int getPunktzahl()
+        -Nutzer finder
+        +Fundmeldung(String fundId, String titel, String kategorie, String fundort, String funddatum, String sicherheitsmerkmal, Nutzer finder)
+        +String getFundId()
+        +String getTitel()
+        +String getKategorie()
+        +String getFundort()
+        +String getFunddatum()
         +String getStatus()
-        +Verlustmeldung getVerlustmeldung()
-        +Fundmeldung getFundmeldung()
-        +int berechnePunktzahl(boolean zeitPasst)
-        +boolean istTreffer()
-        +boolean istAehnlicheFundsache()
-        +boolean bestaetigen()
-        +boolean verwerfen()
+        +Nutzer getFinder()
+        +boolean pruefeSicherheitsmerkmal(String angabe)
+        +void setStatus(String status)
+        +boolean archivieren()
         +String toString()
     }
 
-    Nutzer "1" -- "0..*" Verlustmeldung : meldet
+    class RueckgabeAnfrage {
+        -String anfrageId
+        -String eigentumsnachweis
+        -String status
+        -Nutzer suchende
+        -Fundmeldung fundmeldung
+        +RueckgabeAnfrage(String anfrageId, String eigentumsnachweis, Nutzer suchende, Fundmeldung fundmeldung)
+        +String getAnfrageId()
+        +String getEigentumsnachweis()
+        +String getStatus()
+        +Nutzer getSuchende()
+        +Fundmeldung getFundmeldung()
+        +boolean einreichen()
+        +boolean bestaetigen()
+        +boolean ablehnen()
+        +boolean stornieren()
+        +boolean rueckgabeBestaetigen()
+        +String toString()
+    }
+
     Nutzer "1" -- "0..*" Fundmeldung : meldet
     Nutzer "1" -- "0..*" RueckgabeAnfrage : stellt
     Fundmeldung "1" -- "0..*" RueckgabeAnfrage : betrifft
@@ -137,9 +112,8 @@ Dokumentation und PNG wurden vor der Java-Implementierung in einem eigenen Commi
 Auf Basis von `docs/04-klassendiagramm/klassendiagramm.png` wurden die drei fachlichen Klassen sowie `Main.java` ausschließlich mit der Java-Standardbibliothek (ohne Vererbung oder Frameworks) in `src/` umgesetzt:
 
 - `src/Nutzer.java`
-- `src/Verlustmeldung.java`
 - `src/Fundmeldung.java`
-- `src/Treffer.java`
+- `src/RueckgabeAnfrage.java`
 - `src/Main.java`
 
 ### Abgleich von Code und Klassendiagramm
