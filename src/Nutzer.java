@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Repraesentiert einen registrierten Nutzer der Fundbuero-App.
+ * Ein Nutzer kann sowohl Fundmeldungen anlegen (Finder) als auch
+ * Rueckgabeanfragen stellen (Suchende/Verlierer).
+ */
 public class Nutzer {
     private String nutzerId;
     private String name;

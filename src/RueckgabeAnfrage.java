@@ -1,3 +1,7 @@
+/**
+ * Repraesentiert eine Anfrage einer suchenden Person zur Rueckgabe
+ * einer konkreten Fundmeldung inklusive Statusuebergaengen.
+ */
 public class RueckgabeAnfrage {
     private String anfrageId;
     private String eigentumsnachweis;
@@ -47,7 +51,7 @@ public class RueckgabeAnfrage {
         if (eigentumsnachweis == null || eigentumsnachweis.trim().isEmpty()) {
             return false;
         }
-        // Selbst-Beanspruchung verboten (Review-Erkenntnis aus Uebung 3)
+        // Selbst-Beanspruchung durch den Finder ist nicht erlaubt
         if (suchende != null && suchende.equals(fundmeldung.getFinder())) {
             return false;
         }

@@ -1,3 +1,7 @@
+/**
+ * Repraesentiert eine gemeldete Fundsache im System inkl. nicht oeffentlichem
+ * Sicherheitsmerkmal fuer die Eigentumspruefung.
+ */
 public class Fundmeldung {
     private String fundId;
     private String titel;
@@ -51,11 +55,15 @@ public class Fundmeldung {
         return finder;
     }
 
+    /**
+     * Prueft, ob die Angabe der suchenden Person mit dem hinterlegten
+     * nicht oeffentlichen Sicherheitsmerkmal uebereinstimmt.
+     */
     public boolean pruefeSicherheitsmerkmal(String angabe) {
-        if (angabe == null || sicherheitsmerkmal == null) {
+        if (sicherheitsmerkmal == null || angabe == null) {
             return false;
         }
-        return angabe.toLowerCase().contains(sicherheitsmerkmal.toLowerCase());
+        return sicherheitsmerkmal.trim().equalsIgnoreCase(angabe.trim());
     }
 
     public void setStatus(String status) {
@@ -63,16 +71,15 @@ public class Fundmeldung {
     }
 
     public boolean archivieren() {
-        if (!"GEMELDET".equals(status)) {
-            return false;
+        if ("GEMELDET".equals(status)) {
+            this.status = "ARCHIVIERT";
+            return true;
         }
-        this.status = "ARCHIVIERT";
-        return true;
+        return false;
     }
 
     @Override
     public String toString() {
-        // Sicherheitsmerkmal wird gemaess N-020 bewusst nicht oeffentlich ausgegeben
         return "Fundmeldung{" +
                 "fundId='" + fundId + '\'' +
                 ", titel='" + titel + '\'' +
